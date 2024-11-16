@@ -1,3 +1,6 @@
 fastapi
+"fastapi[standard]"
 requests
 uvicorn
+pydantic
+typing
