@@ -98,7 +98,7 @@ async def claim_request(id: str, claimed_by: str = Form(...)):
             raise HTTPException(status_code=400, detail="Request already claimed or completed")
 
         collection.update_one({"_id": ObjectId(id)}, {"$set": {"case_status": "claimed", "claimed_by": claimed_by}})
-        return {"message": "Request claimed successfully", "claimed_by": claimed_by}
+        return {"message": "Request claimed successfully", "claimed_by": claimed_by, "request_id": str(id)}
     except Exception as e:
         raise HTTPException(status_code=500, detail=f"Failed to claim request: {e}")
 
