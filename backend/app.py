@@ -85,13 +85,13 @@ async def add_request(request: data_model.CleanupRequest):
         raise HTTPException(status_code=500, detail=f"Failed to add request: {e}")
 
 
-@app.post("/claim/{request_id}")
-async def claim_request(request_id: str, claimed_by: str = Form(...)):
+@app.post("/claim/{id}")
+async def claim_request(id: str, claimed_by: str = Form(...)):
     """
     Claim a cleanup request.
     """
     try:
-        result = collection.find_one({"_id": ObjectId(request_id)})
+        result = collection.find_one({"_id": ObjectId(id)})
         if not result:
             raise HTTPException(status_code=404, detail="Request not found")
         if result.get("case_status", "").lower() != "open":
