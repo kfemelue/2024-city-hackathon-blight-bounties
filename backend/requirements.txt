@@ -1,6 +1,7 @@
 fastapi
-"fastapi[standard]"
+fastapi[standard]
 requests
 uvicorn
 pydantic
 typing
+pymongo
