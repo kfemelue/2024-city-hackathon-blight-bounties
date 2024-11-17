@@ -1,0 +1,41 @@
+#headerLogo{
+    align-items: center;
+    max-width: fit-content;
+    max-height: 15vh;
+    margin-right: 75%;
+    margin-top: 1vh;
+  }
+/* 
+  .App-header {
+    background-color: #336B8C;
+    min-height: 20vh;
+    display: block;
+    align-items: center;
+    justify-content: center;
+    font-size: calc(10px + 2vmin);
+    color: white;
+  } */
+
+  .App-header {
+    position: relative;
+    min-height: 70px;
+    background-color: #336B8C;
+    display: block;
+    align-items: center;
+    justify-content: center;
+    font-size: calc(10px + 2vmin);
+  }
+#navBar{
+    display: inline-flex;
+}
+a:hover, a:active{
+    color:darkgray
+}
+a:visited{
+
+}
+
+h1 {
+    margin-top: 0;
+    margin-left: 0;
+}

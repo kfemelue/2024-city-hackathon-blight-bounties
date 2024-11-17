@@ -4,8 +4,11 @@ import { WebLoader } from '@llm-tools/embedjs-loader-web';
 import { PdfLoader } from '@llm-tools/embedjs-loader-pdf';
 import { CsvLoader } from '@llm-tools/embedjs-loader-csv';
 import { MongoDb } from '@llm-tools/embedjs-mongodb';
+import { SitemapLoader } from '@llm-tools/embedjs-loader-sitemap';
+
 
 import express, { Request, Response} from "express";
+import CORS from "cors";
 
 import { MongoClient } from 'mongodb';
 
@@ -20,9 +23,11 @@ const dbconn = process.env.dbConnection || "";
 // console.log(`debug\n${dbuser}\n${dbpwd}\n${dbconn}`);
 
 const app = express();
+
 const port = 8080;
 
 app.use(express.json());
+app.use(CORS());
 
 const ragApplication = await new RAGApplicationBuilder()
 .setModel(new Ollama({ modelName: "llama3.2", baseUrl: 'http://localhost:11434' }))
@@ -35,7 +40,8 @@ const ragApplication = await new RAGApplicationBuilder()
 const Loaders = { 
     'pdf': [PdfLoader, 'filePathOrUrl'],
     'web': [WebLoader, 'urlOrContent'],
-    'csv': [CsvLoader, 'filePathOrUrl']
+    'csv': [CsvLoader, 'filePathOrUrl'],
+    'sitemap': [SitemapLoader, 'url']
 }
 const contentName = {
 
@@ -73,6 +79,8 @@ app.post('/ask', async (req: Request, res: Response) => {
             await ragApplication.addLoader(new JsonLoader({object: results}));
             console.log('resource loaded: ');
             console.log(results);
+        } else if (source.type == 'sitemap') {
+            await ragApplication.addLoader(new SitemapLoader({url: source.link}));
         }
     });
     const result = await ragApplication.query(req.body.query);
