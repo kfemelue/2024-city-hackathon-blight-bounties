@@ -1,2 +1,2 @@
 # 2024-city-hackathon-blight-bounties
-An application that allows Memphis to claim and process City of Memphis 311 hotline public cleanup requests tickets and receive payouts for the work done.
+An application that allows Memphians to claim and process City of Memphis 311 hotline public cleanup requests and receive cash rewards for the work done.
