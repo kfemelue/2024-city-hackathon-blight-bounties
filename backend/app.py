@@ -94,10 +94,10 @@ async def claim_request(id: str, claimed_by: str = Form(...)):
         result = collection.find_one({"_id": ObjectId(id)})
         if not result:
             raise HTTPException(status_code=404, detail="Request not found")
-        if result.get("case_status", "").lower() != "open":
+        if result.get("REQUEST_STATUS", "").lower() != "open":
             raise HTTPException(status_code=400, detail="Request already claimed or completed")
 
-        collection.update_one({"_id": ObjectId(request_id)}, {"$set": {"case_status": "claimed", "claimed_by": claimed_by}})
+        collection.update_one({"_id": ObjectId(id)}, {"$set": {"case_status": "claimed", "claimed_by": claimed_by}})
         return {"message": "Request claimed successfully", "claimed_by": claimed_by}
     except Exception as e:
         raise HTTPException(status_code=500, detail=f"Failed to claim request: {e}")
